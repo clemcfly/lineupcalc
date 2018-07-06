@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+    <link rel="stylesheet" href="style.css">
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body>
+
+        <div class="container black white-text" id="sticky">
+            <div class="row">
+                    <div class="col s12">
+                            <div id="resultat"> 0.00 €</div>
+                    </div>
+            </div>
+                
+                
+        </div>
+
+    <div  class="container">
+        <div class="row">
+                
+                <div class="col s12" id="pizzCards">
+                    
+                </div>
+        </div>
+        
+    </div>
+
+    
+    <script>
+
+        var cpt = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+        var pizzas = ["Margarita", "Napolitaine", "Regina", "Reine", "Royale", "4 Fromages", "Paysanne", "Espagnole", "Basquaise", "Cannibale", "Atlantique", "Hawaienne", "Bollywood", "Vegetarienne"];
+        var text = "";
+        var i;
+        for (i = 0; i < pizzas.length; i++) {
+
+
+            text += '<div class="row card">'
+                + '<div class="col s6">'
+                      
+               
+                
+                
+                + '<div class="nomPizz flow-text" >' + pizzas[i] + '</div> <div class="qtPizz" id=' + [i] + '>' + cpt[i] + ' </div>'
+
+              
+                + '</div>'
+                
+                + '<div class="col s6 center">'
+               
+
+                
+
+                + '<a onclick="moins(' + i + ')" class=" z-depth-2 btn-floating btn-large waves-effect waves-light red bouton" ><i class="material-icons" >remove</i></a>'
+                + '<a onclick="plus(' + i + ')" class=" z-depth-2 btn-floating btn-large waves-effect waves-light green bouton" ><i class="material-icons">add</i></a>'
+
+                + '</div>'
+
+                + '</div>'
+                
+        }
+        document.getElementById("pizzCards").innerHTML = text;
+    </script>
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+
+    <script>
+        function plus(idPizz) {
+            cpt[idPizz] += 1;
+            document.getElementById(idPizz).innerHTML = cpt[idPizz];
+            total();
+        }
+
+        function moins(idPizz) {
+            if (cpt[idPizz] > 0) {
+                cpt[idPizz] -= 1;
+                document.getElementById(idPizz).innerHTML = cpt[idPizz];
+            }
+            total();
+        }
+
+        function total() {
+            var total = 0;
+            var prix = [9, 9.5, 9.5, 10, 10.5, 12, 12.5, 11.5, 12.5, 13.5, 12.5, 12.5, 12.5, 11.5];
+            for (i = 0; i < pizzas.length; i++) {
+                total += cpt[i] * prix[i];
+            }
+           
+            if (total >= 0) {
+                document.getElementById("resultat").innerHTML = total + " €" ;
+            }
+
+            
+        }
+        
+    </script>
+
+    <script>  M.AutoInit(); </script>
+
+
+
+
+
+</body>
+
+</html>
