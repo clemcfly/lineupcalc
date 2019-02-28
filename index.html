@@ -14,109 +14,250 @@
 </head>
 
 <body>
+    <nav class=" black white-text" id="sticky">
 
-    <div class="container black white-text" id="sticky">
         <div class="row">
             <div class="col s6">
-
                 <div id="prixTotal"> 0.00 €</div>
-
             </div>
             <div class="col s6">
-
-                    <div id="nbPizz"> 0 pizzas</div>
-    
-                </div>
+                <div id="nbPizz"> </div>
+            </div>
         </div>
-    </div>
+        <div class="row">
+            <div class="col s12 ">
+                <ul class="tabs black white-text">
+                    <li class="tab col s4 white-text">
+                        <a class="active" href="#pizzCards">
+                            <i class="material-icons red-text">local_pizza</i>
+                        </a>
+                    </li>
+                    <li class="tab col s4">
+                        <a href="#boissonCards">
+                            <i class="material-icons blue-text">local_bar</i>
+                        </a>
+                    </li>
+                    <li class="tab col s4">
+                        <a href="#suppCards">
+                            <i class="material-icons white-text">add</i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+            <div class="row ">
+                <div class="col s12 " id="pizzCards"></div>
+            </div>
+        </div>
 
     <div class="container">
         <div class="row ">
-            <div class="col s12 " id="pizzCards"></div>
+            <div class="col s12 " id="boissonCards"></div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="row ">
+            <div class="col s12 " id="suppCards"></div>
         </div>
     </div>
 
-
     <script>
 
-        var cpt = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        var qtPizza = 0;
+        var cptPizza = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        var pizzas = ["Petite frite", "Grande frite", "Margarita", "Napolitaine", "Regina", "Reine", "Royale", "4 Fromages", "Paysanne", "Espagnole", "Basquaise", "Cannibale", "Atlantique", "Hawaienne", "Bollywood", "Vegetarienne"];
+        var prixPizza = [2.5, 3.5, 9, 9.5, 9.5, 10, 10.5, 12, 12.5, 11.5, 12.5, 13.5, 12.5, 12.5, 12.5, 11.5];
 
-        var pizzas = ["Margarita", "Napolitaine", "Regina", "Reine", "Royale", "4 Fromages", "Paysanne", "Espagnole", "Basquaise", "Cannibale", "Atlantique", "Hawaienne", "Bollywood", "Vegetarienne"];
-        var prix = [9, 9.5, 9.5, 10, 10.5, 12, 12.5, 11.5, 12.5, 13.5, 12.5, 12.5, 12.5, 11.5];
-        var text = "";
-        var i;
-        var qtPizz = 0;
-        for (i = 0; i < pizzas.length; i++) {
+        var qtBoisson = 0;
+        var cptBoisson = [0, 0, 0, 0, 0, 0, 0, 0];
+        var boissons = ["Soda", "Coca - 50 cl", "Eau - 50 cl", "Perrier - 50 cl", "Heineken", "Desperados - 33 cl", "Hoegaarden - 33 cl", "Skoll - 33 cl"];
+        var prixBoisson = [2, 2.5, 1.5, 2.5, 2.5, 4, 4, 4];
 
+        var qtSupp = 0;
+        var cptSupp = [0, 0];
+        var supps = ["Oeuf", "Champignon"];
+        var prixSupp = [1, 0.5];
 
-            text += '<div class="row card">'
-                + '<div class="col s6">'
+        function initPizzas() {
 
+            var text = "";
+            var i;
 
-
-
-                + '<div class="nomPizz flow-text" >' + pizzas[i] + '</div> <div class="qtPizz" id=' + [i] + '>' + cpt[i] + ' </div>'
-
-
-                + '</div>'
-
-                + '<div class="col s6 center">'
-
+            for (i = 0; i < pizzas.length; i++) {
 
 
+                text += '<div class="row card">'
+                    + '<div class="col s6">'
+                    + '<div class="nom flow-text" >' + pizzas[i] + '</div> <div class="qt" id=pizza' + [i] + '>' + cptPizza[i] + ' </div>'
+                    + '</div>'
+                    + '<div class="col s6 center">'
+                    + '<a onclick="moinsPizza(' + i + ')" class=" z-depth-2 btn-floating btn-large waves-effect waves-light light-blue lighten-3 bouton" ><i class="material-icons" >remove</i></a>'
+                    + '<a onclick="plusPizza(' + i + ')" class=" z-depth-2 btn-floating btn-large waves-effect waves-light light-blue darken-3 bouton" ><i class="material-icons">add</i></a>'
+                    + '</div>'
+                    + '</div>'
 
-                + '<a onclick="moins(' + i + ')" class=" z-depth-2 btn-floating btn-large waves-effect waves-light light-blue lighten-3 bouton" ><i class="material-icons" >remove</i></a>'
-                + '<a onclick="plus(' + i + ')" class=" z-depth-2 btn-floating btn-large waves-effect waves-light light-blue darken-3 bouton" ><i class="material-icons">add</i></a>'
-
-                + '</div>'
-
-                + '</div>'
-
+            }
+            document.getElementById("pizzCards").innerHTML = text;
         }
-        document.getElementById("pizzCards").innerHTML = text;
+
+        function initBoissons() {
+
+            var text = "";
+            var i;
+
+            for (i = 0; i < boissons.length; i++) {
+
+
+                text += '<div class="row card">'
+                    + '<div class="col s6">'
+                    + '<div class="nom flow-text" >' + boissons[i] + '</div> <div class="qt" id=boisson' + [i] + '>' + cptBoisson[i] + ' </div>'
+                    + '</div>'
+                    + '<div class="col s6 center">'
+                    + '<a onclick="moinsBoisson(' + i + ')" class=" z-depth-2 btn-floating btn-large waves-effect waves-light light-blue lighten-3 bouton" ><i class="material-icons" >remove</i></a>'
+                    + '<a onclick="plusBoisson(' + i + ')" class=" z-depth-2 btn-floating btn-large waves-effect waves-light light-blue darken-3 bouton" ><i class="material-icons">add</i></a>'
+                    + '</div>'
+                    + '</div>'
+
+            }
+            document.getElementById("boissonCards").innerHTML = text;
+        }
+
+        function initSupp() {
+
+            var text = "";
+            var i;
+
+            for (i = 0; i < supps.length; i++) {
+
+
+                text += '<div class="row card">'
+                    + '<div class="col s6">'
+                    + '<div class="nom flow-text" >' + supps[i] + '</div> <div class="qt" id=supp' + [i] + '>' + cptSupp[i] + ' </div>'
+                    + '</div>'
+                    + '<div class="col s6 center">'
+                    + '<a onclick="moinsSupp(' + i + ')" class=" z-depth-2 btn-floating btn-large waves-effect waves-light light-blue lighten-3 bouton" ><i class="material-icons" >remove</i></a>'
+                    + '<a onclick="plusSupp(' + i + ')" class=" z-depth-2 btn-floating btn-large waves-effect waves-light light-blue darken-3 bouton" ><i class="material-icons">add</i></a>'
+                    + '</div>'
+                    + '</div>'
+
+            }
+            document.getElementById("suppCards").innerHTML = text;
+        }
+
+        initPizzas();
+        initBoissons();
+        initSupp();
     </script>
 
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
 
     <script>
-        function plus(idPizz) {
-            cpt[idPizz] += 1;
-            qtPizz += 1;
-            document.getElementById(idPizz).innerHTML = cpt[idPizz];
-            document.getElementById(idPizz).style.color = "#ffffff" ;
-           /* document.getElementById(idPizz).style.fontSize = "30px" ; */
+        function plusPizza(idPizz) {
+            cptPizza[idPizz] += 1;
+            qtPizza += 1;
+            document.getElementById('pizza' + idPizz).innerHTML = cptPizza[idPizz];
+            document.getElementById('pizza' + idPizz).style.color = "#ffffff";
+            /* document.getElementById(idPizz).style.fontSize = "30px" ; */
             total();
-            document.getElementById(idPizz).style.backgroundColor = "#ff3d00" ;
+            document.getElementById('pizza' + idPizz).style.backgroundColor = "#ff3d00";
             total();
         }
 
-        function moins(idPizz) {
-            if (cpt[idPizz] > 0) {
-                cpt[idPizz] -= 1;
-                qtPizz -= 1;
-                document.getElementById(idPizz).innerHTML = cpt[idPizz];
+        function moinsPizza(idPizz) {
+            if (cptPizza[idPizz] > 0) {
+                cptPizza[idPizz] -= 1;
+                qtPizza -= 1;
+                document.getElementById('pizza' + idPizz).innerHTML = cptPizza[idPizz];
             }
 
-            if (cpt[idPizz] == 0) {
-                document.getElementById(idPizz).style.color = "#000000" ;
-                document.getElementById(idPizz).style.fontSize = "24px" ;
-                document.getElementById(idPizz).style.backgroundColor = "#ffffff" ;
-            total();
+            if (cptPizza[idPizz] == 0) {
+                document.getElementById('pizza' + idPizz).style.color = "#000000";
+                document.getElementById('pizza' + idPizz).style.fontSize = "24px";
+                document.getElementById('pizza' + idPizz).style.backgroundColor = "#ffffff";
+                total();
             }
             total();
         }
+
+        function plusBoisson(idBoisson) {
+            cptBoisson[idBoisson] += 1;
+            qtBoisson += 1;
+            document.getElementById('boisson' + idBoisson).innerHTML = cptBoisson[idBoisson];
+            document.getElementById('boisson' + idBoisson).style.color = "#ffffff";
+            /* document.getElementById(idPizz).style.fontSize = "30px" ; */
+            total();
+            document.getElementById('boisson' + idBoisson).style.backgroundColor = "#ff3d00";
+            total();
+        }
+
+        function moinsBoisson(idBoisson) {
+            if (cptBoisson[idBoisson] > 0) {
+                cptBoisson[idBoisson] -= 1;
+                qtBoisson -= 1;
+                document.getElementById('boisson' + idBoisson).innerHTML = cptBoisson[idBoisson];
+            }
+
+            if (cptBoisson[idBoisson] == 0) {
+                document.getElementById('boisson' + idBoisson).style.color = "#000000";
+                document.getElementById('boisson' + idBoisson).style.fontSize = "24px";
+                document.getElementById('boisson' + idBoisson).style.backgroundColor = "#ffffff";
+                total();
+            }
+            total();
+        }
+
+        function plusSupp(idSupp) {
+            cptSupp[idSupp] += 1;
+            qtSupp += 1;
+            document.getElementById('supp' + idSupp).innerHTML = cptSupp[idSupp];
+            document.getElementById('supp' + idSupp).style.color = "#ffffff";
+            /* document.getElementById(idPizz).style.fontSize = "30px" ; */
+            total();
+            document.getElementById('supp' + idSupp).style.backgroundColor = "#ff3d00";
+            total();
+        }
+
+        function moinsSupp(idSupp) {
+            if (cptSupp[idSupp] > 0) {
+                cptSupp[idSupp] -= 1;
+                qtSupp -= 1;
+                document.getElementById('supp' + idSupp).innerHTML = cptSupp[idSupp];
+            }
+
+            if (cptSupp[idSupp] == 0) {
+                document.getElementById('supp' + idSupp).style.color = "#000000";
+                document.getElementById('supp' + idSupp).style.fontSize = "24px";
+                document.getElementById('supp' + idSupp).style.backgroundColor = "#ffffff";
+                total();
+            }
+            total();
+        }
+
+
 
         function total() {
             var total = 0;
 
             for (i = 0; i < pizzas.length; i++) {
-                total += cpt[i] * prix[i];
+                total += cptPizza[i] * prixPizza[i];
+            }
+
+            for (i = 0; i < boissons.length; i++) {
+                total += cptBoisson[i] * prixBoisson[i];
+            }
+
+            for (i = 0; i < supps.length; i++) {
+                total += cptSupp[i] * prixSupp[i];
             }
 
             if (total >= 0) {
                 document.getElementById("prixTotal").innerHTML = total + " €";
-                document.getElementById("nbPizz").innerHTML =  "Quantité : " +  qtPizz ;
+                /*document.getElementById("nbPizz").innerHTML = "Quantité : " + qtPizza; */
             }
 
 
